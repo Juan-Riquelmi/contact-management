@@ -5,10 +5,9 @@ main {
 }
 
 nav {
-    max-height: 120px;
     width: 100%;
     border-bottom: 2px solid #E2E8F0;
-    padding: 10px 0px;
+    padding: 20px 0px;
     display: flex;
     align-items: center;
     background-color: #FFF;

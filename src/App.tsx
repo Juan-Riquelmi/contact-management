@@ -3,11 +3,21 @@ import { useState } from 'react'
 
 export default function App() {
 
-  const [contacts, setContatcs] = useState<String[]>([
-    'Explorar cidades',
-    'Jogar Lego City',
-    'Comer feijão'
-  ])
+  const [contacts, setContacts] = useState([
+    {nome: 'Jhon Doe', email: 'jhondoe@gmail.com', telefone: '(21) 98129-0049'},
+    {nome: 'Maria Insane', email: 'mariaInsane@gmail.com', telefone: '(21) 99149-4349'}
+])
+
+  const [input, setInput] = useState({
+    nome: '',
+    email: '',
+    telefone: ''
+  })
+  
+
+  function Salvar(){
+    setContacts(contacts => [...contacts, input])
+  }
 
   return (
 
@@ -32,53 +42,36 @@ export default function App() {
 
           <div className="table-contact">
             <table>
-                <tr>
-                  <th>CONTATO</th>
-                  <th>E-MAIL</th>
-                  <th>TELEFONE</th>
-                  <th>AÇÕES</th>
-                </tr>
-                <tr>
-                  <td><p className="name-list">João Silva</p></td>
-                  <td>joão@gmail.com</td>
-                  <td>(11) 98888-7777</td>
-                  <td>
-                    <div className="table-img">
-                      <button>
-                        <img src="./src/img/edit_icon.png" alt="edit"/>
-                      </button>
-                      <button>
-                        <img src="./src/img/delete_icon.png" alt="delete"/>
-                      </button>
-                    </div>
-                    </td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th>CONTATO</th>
+                    <th>E-MAIL</th>
+                    <th>TELEFONE</th>
+                    <th>AÇÕES</th>
+                  </tr>
+                </thead>
+                {contacts.map( (contacts, index) => (
+                  <tbody key={index}>
+                    <tr>
+                      <td><p className="name-list">{contacts.nome}</p></td>
+                      <td>{contacts.email}</td>
+                      <td>{contacts.telefone}</td>
+                      <td>
+                        <div className="table-img">
+                          <button>
+                            <img src="./src/img/edit_icon.png" alt="edit"/>
+                          </button>
+                          <button>
+                            <img src="./src/img/delete_icon.png" alt="delete"/>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
               </table>
           </div>
 
-          {/*<div className="nav-section">
-            <p>CONTATO</p>
-            <p>E-MAIL</p>
-            <p>TELEFONE</p>
-            <p>AÇÕES</p>
-          </div>*/}
-
-          {/*<div className='list-section'>
-            <p className='name-section'>João Silva</p>
-            <p>joão@gmail.com</p>
-            <p>(11) 98888-7777</p>
-            <div className="img-list">
-              <img src="./src/img/edit_icon.png" alt="edit" />
-              <img src="./src/img/delete_icon.png" alt="delete" />
-            </div>
-          </div>*/}
-          
-
-          {/*contacts.map((item) => (
-            <p>{item}</p>
-          ))*/}
-
-          
         </section>
 
         <aside>
@@ -91,32 +84,35 @@ export default function App() {
           <hr />
           <p className="aside-subparagraph">Nome Completo</p>
           <input
+            value={input.nome}
+            onChange={e => setInput({...input, nome: e.target.value})}
             type="text"
             name="name"
-            id="name"
             className="input-aside"
             placeholder="Ex: Juan Riquelmi Santos Taveira"
           />
           <p className="aside-subparagraph">Email </p>
           <input
+            value={input.email}
+            onChange={e => setInput({...input, email: e.target.value})}
             type="email"
             name="email"
-            id="email"
             className="input-aside"
             placeholder="usuario@gmail.com"
           />
           <p className="aside-subparagraph">Telefone </p>
           <input
+            value={input.telefone}
+            onChange={e => setInput({...input, telefone: e.target.value})}
             type="text"
             name="telefone"
-            id="telefone"
             className="input-aside"
             placeholder="(00) 00000-0000 "
           />
 
-          <button className="button-add" title="add">
+          <button className="button-add" title="add" onClick={Salvar}>
             <img src="./src/img/user_add.png" alt="add" className="button-img" />
-            <p className="button-text">Salvar Contato</p>
+            <p className="button-text" >Salvar Contato</p>
           </button>
 
           <button className="aside-clean">Limpar os campos</button>
